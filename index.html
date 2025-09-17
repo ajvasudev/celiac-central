@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celiac Central - Your Complete Guide to Celiac Disease</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        header {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><defs><linearGradient id="grain" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.1)"/><stop offset="50%" style="stop-color:rgba(255,255,255,0.05)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0.1)"/></linearGradient></defs><rect width="100" height="20" fill="url(%23grain)"/></svg>') repeat;
+            opacity: 0.3;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        nav {
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 0 1rem;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            color: #333;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-btn:hover,
+        .nav-btn.active {
+            color: #4CAF50;
+            border-bottom-color: #4CAF50;
+            background: rgba(76, 175, 80, 0.05);
+        }
+
+        .content {
+            padding: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid #4CAF50;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-card h3 {
+            color: #4CAF50;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .hidden-gluten-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .hidden-item {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .hidden-item:hover {
+            background: #fff;
+            box-shadow: 0 3px 10px rgba(255, 193, 7, 0.3);
+        }
+
+        .restaurant-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid #4CAF50;
+        }
+
+        .restaurant-name {
+            font-weight: bold;
+            color: #4CAF50;
+            font-size: 1.2rem;
+        }
+
+        .restaurant-type {
+            color: #666;
+            font-style: italic;
+        }
+
+        .testing-steps {
+            counter-reset: step-counter;
+        }
+
+        .testing-step {
+            counter-increment: step-counter;
+            background: #f8f9fa;
+            margin: 1rem 0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+            position: relative;
+        }
+
+        .testing-step::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: -15px;
+            top: 15px;
+            background: #4CAF50;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .gluten-sources {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .source-category {
+            background: #e3f2fd;
+            border-radius: 8px;
+            padding: 1rem;
+            border-top: 3px solid #2196F3;
+        }
+
+        .source-category h4 {
+            color: #1976D2;
+            margin-bottom: 0.5rem;
+        }
+
+        .source-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .source-list li {
+            padding: 0.25rem 0;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .source-list li::before {
+            content: '⚠️';
+            position: absolute;
+            left: 0;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-btn {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .content {
+                padding: 1rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌾 Celiac Central</h1>
+            <p class="tagline">Your Complete Guide to Living Gluten-Free</p>
+        </header>
+
+        <nav>
+            <div class="nav-container">
+                <button class="nav-btn active" onclick="showTab('what-is-celiac')">What is Celiac?</button>
+                <button class="nav-btn" onclick="showTab('statistics')">Statistics</button>
+                <button class="nav-btn" onclick="showTab('testing')">Testing</button>
+                <button class="nav-btn" onclick="showTab('common-gluten')">Common Gluten Sources</button>
+                <button class="nav-btn" onclick="showTab('hidden-gluten')">Hidden Gluten</button>
+                <button class="nav-btn" onclick="showTab('restaurants')">Restaurants</button>
+                <button class="nav-btn" onclick="showTab('research')">Research Trials</button>
+            </div>
+        </nav>
+
+        <main class="content">
+            <div id="what-is-celiac" class="tab-content active">
+                <div class="info-card">
+                    <h3>What is Celiac Disease?</h3>
+                    <p>Celiac disease is an autoimmune disorder where eating gluten leads to damage in the small intestine. When people with celiac disease eat gluten (a protein found in wheat, rye, barley, and sometimes oats), their body mounts an immune response that attacks the small intestine.</p>
+                    
+                    <p>This attack damages the villi, small fingerlike projections that line the small intestine and promote nutrient absorption. When the villi get damaged, nutrients cannot be absorbed properly into the body.</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Common Symptoms</h3>
+                    <p><strong>Digestive symptoms:</strong> Diarrhea, constipation, bloating, gas, nausea, vomiting, stomach pain</p>
+                    <p><strong>Non-digestive symptoms:</strong> Fatigue, headaches, joint pain, skin rash, iron-deficiency anemia, weight loss, delayed growth (in children)</p>
+                    <p><strong>Important:</strong> Some people with celiac disease have no symptoms at all, which is why testing is crucial if you suspect you might have it.</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>The Only Treatment: A Strict Gluten-Free Diet</h3>
+                    <p>Currently, the only treatment for celiac disease is following a strict, lifelong gluten-free diet. This means avoiding all foods and products containing wheat, rye, barley, and contaminated oats.</p>
+                    <p>With proper treatment, the intestinal damage can heal, and symptoms typically improve within weeks to months.</p>
+                </div>
+            </div>
+
+            <div id="statistics" class="tab-content">
+                <div class="info-card">
+                    <h3>Celiac Disease by the Numbers</h3>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-number">1 in 100</span>
+                            <span>People worldwide have celiac disease</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">3 million</span>
+                            <span>Americans have celiac disease</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">83%</span>
+                            <span>Are undiagnosed or misdiagnosed</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">6-10 years</span>
+                            <span>Average time to get diagnosed</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Who Gets Celiac Disease?</h3>
+                    <p><strong>Genetics:</strong> People with certain genes (HLA-DQ2 or HLA-DQ8) are at higher risk</p>
+                    <p><strong>Family history:</strong> First-degree relatives have a 1 in 10 chance of developing celiac disease</p>
+                    <p><strong>Age:</strong> Can develop at any age, from infancy to senior years</p>
+                    <p><strong>Gender:</strong> More common in women than men (2:1 ratio)</p>
+                </div>
+            </div>
+
+            <div id="testing" class="tab-content">
+                <div class="info-card">
+                    <h3>How to Get Tested for Celiac Disease</h3>
+                    <p><strong>⚠️ Important:</strong> You must be eating gluten regularly for accurate test results. Do not start a gluten-free diet before testing!</p>
+                </div>
+
+                <div class="testing-steps">
+                    <div class="testing-step">
+                        <h4>Blood Tests</h4>
+                        <p>Your doctor will test for specific antibodies that are elevated in people with celiac disease. The most common tests are:</p>
+                        <ul>
+                            <li>tTG-IgA (tissue transglutaminase)</li>
+                            <li>EMA (endomysial antibodies)</li>
+                            <li>DGP (deamidated gliadin peptide)</li>
+                        </ul>
+                    </div>
+
+                    <div class="testing-step">
+                        <h4>Genetic Testing</h4>
+                        <p>Tests for HLA-DQ2 and HLA-DQ8 genes. If you don't have these genes, celiac disease is extremely unlikely.</p>
+                    </div>
+
+                    <div class="testing-step">
+                        <h4>Endoscopy with Biopsy</h4>
+                        <p>If blood tests are positive, your doctor may recommend an endoscopy to examine the small intestine and take tissue samples to confirm damage to the villi.</p>
+                    </div>
+
+                    <div class="testing-step">
+                        <h4>Follow-up Testing</h4>
+                        <p>After starting a gluten-free diet, regular follow-up blood tests help monitor healing and ensure you're maintaining a strict gluten-free diet.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="common-gluten" class="tab-content">
+                <div class="info-card">
+                    <h3>Common Sources of Gluten</h3>
+                    <p>Gluten is found in wheat, rye, barley, and contaminated oats. Here are the most common places you'll find gluten:</p>
+                </div>
+
+                <div class="gluten-sources">
+                    <div class="source-category">
+                        <h4>Bread & Baked Goods</h4>
+                        <ul class="source-list">
+                            <li>All wheat breads</li>
+                            <li>Bagels, rolls, buns</li>
+                            <li>Cakes, cookies, pastries</li>
+                            <li>Muffins, croissants</li>
+                            <li>Pizza dough</li>
+                        </ul>
+                    </div>
+
+                    <div class="source-category">
+                        <h4>Pasta & Noodles</h4>
+                        <ul class="source-list">
+                            <li>Traditional pasta</li>
+                            <li>Egg noodles</li>
+                            <li>Ramen noodles</li>
+                            <li>Couscous</li>
+                            <li>Orzo</li>
+                        </ul>
+                    </div>
+
+                    <div class="source-category">
+                        <h4>Cereals & Grains</h4>
+                        <ul class="source-list">
+                            <li>Wheat cereal</li>
+                            <li>Barley</li>
+                            <li>Rye bread</li>
+                            <li>Regular oats (contaminated)</li>
+                            <li>Wheat berries</li>
+                        </ul>
+                    </div>
+
+                    <div class="source-category">
+                        <h4>Beer & Beverages</h4>
+                        <ul class="source-list">
+                            <li>Regular beer</li>
+                            <li>Malt beverages</li>
+                            <li>Some flavored drinks</li>
+                            <li>Wheat beer</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="hidden-gluten" class="tab-content">
+                <div class="info-card">
+                    <h3>Hidden Sources of Gluten</h3>
+                    <p>Gluten can hide in unexpected places. Always read labels carefully!</p>
+                </div>
+
+                <div class="hidden-gluten-grid">
+                    <div class="hidden-item">
+                        <h4>🥫 Processed Foods</h4>
+                        <p>Soy sauce, bouillon cubes, seasoning mixes, some soups, processed meats, hot dogs</p>
+                    </div>
+
+                    <div class="hidden-item">
+                        <h4>🍯 Condiments & Sauces</h4>
+                        <p>Some salad dressings, marinades, gravies, teriyaki sauce, some ketchups</p>
+                    </div>
+
+                    <div class="hidden-item">
+                        <h4>🍬 Candies & Snacks</h4>
+                        <p>Some candies, chocolate bars, flavored chips, pretzels, crackers</p>
+                    </div>
+
+                    <div class="hidden-item">
+                        <h4>💊 Medications & Supplements</h4>
+                        <p>Some prescription drugs, over-the-counter medications, vitamins, supplements</p>
+                    </div>
+
+                    <div class="hidden-item">
+                        <h4>🧴 Personal Care Items</h4>
+                        <p>Lipstick, lip balm, toothpaste, mouthwash, play dough</p>
+                    </div>
+
+                    <div class="hidden-item">
+                        <h4>🥄 Cross-Contamination</h4>
+                        <p>Shared toasters, cutting boards, fryers, utensils, flour dust in the air</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Label Reading Tips</h3>
+                    <p><strong>Look for these terms that contain gluten:</strong></p>
+                    <p>Wheat, rye, barley, malt, brewer's yeast, wheat starch, modified food starch (if from wheat), hydrolyzed vegetable protein (if from wheat)</p>
+                    
+                    <p><strong>Look for "Certified Gluten-Free" labels</strong> - these products are tested to contain less than 20 parts per million of gluten.</p>
+                </div>
+            </div>
+
+            <div id="restaurants" class="tab-content">
+                <div class="info-card">
+                    <h3>Gluten-Free Friendly Restaurant Chains</h3>
+                    <p>These restaurants offer gluten-free options or dedicated gluten-free menus:</p>
+                </div>
+
+                <div class="restaurant-card">
+                    <div class="restaurant-name">P.F. Chang's</div>
+                    <div class="restaurant-type">Asian Cuisine</div>
+                    <p>Extensive gluten-free menu with clearly marked options and separate prep areas.</p>
+                </div>
+
+                <div class="restaurant-card">
+                    <div class="restaurant-name">Chipotle</div>
+                    <div class="restaurant-type">Mexican Fast-Casual</div>
+                    <p>Most items are gluten-free except flour tortillas. Ask for corn tortillas or bowls.</p>
+                </div>
+
+                <div class="restaurant-card">
+                    <div class="restaurant-name">Outback Steakhouse</div>
+                    <div class="restaurant-type">Steakhouse</div>
+                    <p>Comprehensive gluten-free menu with steaks, seafood, and sides.</p>
+                </div>
+
+                <div class="restaurant-card">
+                    <div class="restaurant-name">Red Robin</div>
+                    <div class="restaurant-type">Burgers</div>
+                    <p>Gluten-free buns available and dedicated fryer for fries.</p>
+                </div>
+
+                <div class="restaurant-card">
+                    <div class="restaurant-name">Domino's</div>
+                    <div class="restaurant-type">Pizza</div>
+                    <p>Gluten-free crust available (prepared in shared kitchen, so risk of cross-contamination).</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Tips for Dining Out</h3>
+                    <ul>
+                        <li>Call ahead and speak with the manager about gluten-free options</li>
+                        <li>Ask about cross-contamination prevention measures</li>
+                        <li>Explain that you have celiac disease, not just a preference</li>
+                        <li>Consider using apps like "Find Me Gluten Free" to discover local options</li>
+                        <li>When in doubt, stick to simple preparations like grilled meats and vegetables</li>
+                        <li>Always verify that salad dressings and seasonings are gluten-free</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="research" class="tab-content">
+                <div class="info-card">
+                    <h3>Current Research & Clinical Trials</h3>
+                    <p>Scientists and researchers around the world are working on new treatments and potential cures for celiac disease. Here are some areas of active research:</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>🧬 Gene Therapy Research</h3>
+                    <p>Researchers are exploring ways to modify or silence the genes that cause celiac disease, potentially offering a permanent solution.</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>💊 Enzyme Therapies</h3>
+                    <p>Clinical trials are testing enzymes that could break down gluten in the stomach before it reaches the small intestine. Some promising candidates include:</p>
+                    <ul>
+                        <li><strong>Larazotide acetate</strong> - A drug that may help prevent gluten from crossing the intestinal barrier</li>
+                        <li><strong>ALV003</strong> - An enzyme therapy designed to break down gluten proteins</li>
+                        <li><strong>KumaMax</strong> - A gluten-degrading enzyme supplement</li>
+                    </ul>
+                </div>
+
+                <div class="info-card">
+                    <h3>🔬 Immunotherapy</h3>
+                    <p>Scientists are working on treatments that could "retrain" the immune system to tolerate gluten, similar to allergy shots.</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>🌾 Genetically Modified Wheat</h3>
+                    <p>Researchers are developing wheat varieties with reduced or modified gluten proteins that may be safe for people with celiac disease.</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>📊 How to Find Clinical Trials</h3>
+                    <p>If you're interested in participating in celiac disease research:</p>
+                    <ul>
+                        <li><strong>ClinicalTrials.gov</strong> - Search for "celiac disease" to find current studies</li>
+                        <li><strong>Celiac Disease Foundation</strong> - Maintains a database of ongoing research</li>
+                        <li><strong>University research centers</strong> - Many medical schools conduct celiac research</li>
+                        <li><strong>Your gastroenterologist</strong> - May know about local trials</li>
+                    </ul>
+                    
+                    <p><strong>Important:</strong> Always discuss participation with your healthcare provider first. Clinical trials have specific eligibility requirements and potential risks.</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>🏥 Leading Research Institutions</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px;">
+                            <strong>Mayo Clinic</strong><br>
+                            <small>Rochester, MN - Celiac Disease Research Program</small>
+                        </div>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px;">
+                            <strong>University of Chicago</strong><br>
+                            <small>Celiac Disease Center</small>
+                        </div>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px;">
+                            <strong>Columbia University</strong><br>
+                            <small>Celiac Disease Research Center</small>
+                        </div>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px;">
+                            <strong>Harvard Medical School</strong><br>
+                            <small>Center for Celiac Research</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>🔮 The Future of Celiac Treatment</h3>
+                    <p>While a strict gluten-free diet remains the only current treatment, researchers are optimistic that within the next 10-15 years, we may see:</p>
+                    <ul>
+                        <li>Enzyme supplements that allow occasional gluten consumption</li>
+                        <li>Vaccines that prevent celiac disease in at-risk individuals</li>
+                        <li>Medications that heal intestinal damage more quickly</li>
+                        <li>Gene therapies that could provide a permanent cure</li>
+                    </ul>
+                    <p><em>Stay hopeful - the future looks brighter for celiac disease management!</em></p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Celiac Central | Always consult with healthcare professionals for medical advice</p>
+            <p><em>This website is for educational purposes only and should not replace professional medical guidance</em></p>
+        </footer>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all nav buttons
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+
+            // Scroll to top of content
+            document.querySelector('.content').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.info-card, .restaurant-card, .hidden-item');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-3px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Add click animation to stats
+            const statCards = document.querySelectorAll('.stat-card');
+            statCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.animation = 'none';
+                    setTimeout(() => {
+                        this.style.animation = 'fadeIn 0.5s ease-in';
+                    }, 10);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
